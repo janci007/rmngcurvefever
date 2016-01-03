@@ -52,7 +52,7 @@ public class RmngCurveFever {
     
     
     public static void main(String[] args) {
-	RmngCurveFever f = new RmngCurveFever();
+	final RmngCurveFever f = new RmngCurveFever();
 	try {
 	    TrayIcon icon = new TrayIcon(ImageIO.read(f.getClass().getResource("/icon.png")), "Rouming Curve Fever notification service");
 	    icon.setImage(icon.getImage().getScaledInstance((int) icon.getSize().getWidth(), -1, Image.SCALE_SMOOTH));
@@ -88,8 +88,8 @@ public class RmngCurveFever {
 	}
     }
     
-    private void showNotif(Game g){
-	JFrame notif = new JFrame("New game!!!");
+    private void showNotif(final Game g){
+	final JFrame notif = new JFrame("New game!!!");
 	notif.setLayout(null);
 	notif.setSize(591, 499);
 	try {
