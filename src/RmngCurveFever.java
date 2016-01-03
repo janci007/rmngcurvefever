@@ -33,7 +33,7 @@ import javax.swing.JOptionPane;
 public class RmngCurveFever {
     
     // number of seconds between forum checks
-    private final static int checkInterval = 10; 
+    private final static int checkInterval = 30; 
     private final String forumUrl = "http://www.rouming.cz/roumingForum.php";
     private final Pattern feverRegex = Pattern.compile("\"(.*curvefever\\.com[^\"]*)");
     private final Pattern dateRegex = Pattern.compile("\\(([0-9]{1,2})\\.([0-9]{1,2}).([0-9]{4}) ([0-9]{1,2}):([0-9]{1,2})\\)");
