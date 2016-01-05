@@ -5,6 +5,7 @@
  */
 
 import java.awt.Desktop;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.MenuItem;
 import java.awt.PopupMenu;
@@ -26,9 +27,11 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class RmngCurveFever {
     
@@ -77,7 +80,7 @@ public class RmngCurveFever {
 	}, 0, checkInterval*1000);
 	
     }
-	
+    
     public void checkGame(){
 	Game g = findGame();
 	if(g != null){
@@ -89,7 +92,7 @@ public class RmngCurveFever {
     }
     
     private void showNotif(final Game g){
-	final JFrame notif = new JFrame("New game!!!");
+	final JDialog notif = new JDialog((JFrame)null, "New game!!!");
 	notif.setLayout(null);
 	notif.setSize(591, 499);
 	try {
@@ -118,7 +121,26 @@ public class RmngCurveFever {
 	    }
 	});
 	notif.add(btn);
+	notif.setResizable(false);
+	int w = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
+	int h = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
+	final int th = h - notif.getHeight();
+	notif.setLocation((w-notif.getWidth())/2, h);
+	Timer anim = new Timer(20, new ActionListener() {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		if(notif.getY() > th) {
+		    notif.setLocation(notif.getX(), notif.getY()-40);
+		}else{
+		    ((Timer)e.getSource()).stop();
+		}
+	    }
+	});
+	anim.setRepeats(true);
+	anim.setCoalesce(true);
+	anim.start();
 	notif.setVisible(true);
+	notif.setAlwaysOnTop(true);	
     }
     
     private boolean isNewGame(Game g){
